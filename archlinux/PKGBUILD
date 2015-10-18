@@ -6,7 +6,7 @@
 # Maintainer: Olivier Medoc <o_medoc@yahoo.fr>
 pkgname=qubes-vm-gui
 pkgver=`cat version`
-pkgrel=2
+pkgrel=3
 epoch=
 pkgdesc="The Qubes GUI Agent for AppVMs"
 arch=("x86_64")
@@ -50,6 +50,9 @@ sed 's:#!/usr/bin/env python:#!/usr/bin/envpython2:' -i appvm-scripts/usrbin/*
 sed 's:#!/usr/bin/python:#!/usr/bin/python2:' -i window-icon-updater/*
 sed 's:#!/usr/bin/env python:#!/usr/bin/env python2:' -i window-icon-updater/*
 
+# Archilnux only provides xcffib, which is a "Python3 drop in replacement for xpyb". xpyb can currently only be built from AUR
+sed 's:import xcb:import xcffib:g' -i window-icon-updater/icon-sender
+sed 's:xcb\.:xcffib\.:g' -i window-icon-updater/icon-sender
 
 pa_ver=`(pkg-config --modversion libpulse 2>/dev/null || echo 0.0) | cut -f 1 -d "-"`
 rm -f pulse/pulsecore
