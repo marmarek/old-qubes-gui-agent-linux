@@ -8,7 +8,7 @@ export DESTDIR=$(shell pwd)/debian/qubes-gui-agent
 export LIBDIR=/usr/lib
 
 %:
-	dh $@ --with systemd
+	dh $@ --with systemd --with=config-package
 
 override_dh_auto_build:
 	make appvm
