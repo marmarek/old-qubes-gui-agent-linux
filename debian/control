@@ -18,7 +18,8 @@ Build-Depends:
     qubes-gui-common (>= 3.2.0),
     qubesdb-dev,
     dh-systemd (>= 1.5),
-    libltdl-dev
+    libltdl-dev,
+    config-package-dev
 Standards-Version: 3.9.3
 Homepage: http://www.qubes-os.org/
 #Vcs-Git: git://git.debian.org/collab-maint/qubes-gui-agent.git
@@ -43,7 +44,8 @@ Depends:
     ${shlibs:Depends},
     ${misc:Depends}
 Recommends: qt4-qtconfig
-Provides: x-display-manager
+Provides: x-display-manager, ${diverted-files}
+Conflicts: ${diverted-files}
 Description: Makes X11 windows available to qubes dom0
  The Qubes GUI agent allows the forwarding of running app windows to the
  qubes dom0. It also includes various extras such as copy/paste support.
