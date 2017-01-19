@@ -56,6 +56,7 @@ Requires:	qubes-core-vm >= 2.1.2
 Requires:	xen-qubes-vm-essentials
 Requires:	xorg-x11-drv-dummy
 Requires:	xorg-x11-xinit
+Requires:	fedora-release
 
 # The vchan sink needs .h files from pulseaudio sources
 # that are not exported by any *-devel packages; thus they are internal and
@@ -101,6 +102,17 @@ fi
 
 sed -i '/^autospawn/d' /etc/pulse/client.conf
 echo autospawn=no >> /etc/pulse/client.conf
+
+%if %{fedora} >= 21
+# Create Xwrapper.config override..."
+if [ ! -e /etc/X11/Xwrapper.config ]; then
+    mkdir -p /etc/X11
+    cat > /etc/X11/Xwrapper.config <<EOF
+allowed_users = anybody
+needs_root_rights = yes
+EOF
+fi
+%endif
 
 %preun
 if [ "$1" = 0 ] ; then
